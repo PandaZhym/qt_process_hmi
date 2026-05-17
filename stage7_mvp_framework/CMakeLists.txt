@@ -24,3 +24,14 @@ target_include_directories(${PROJECT_NAME} PRIVATE ../process_widgets)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets
     ${CMAKE_CURRENT_SOURCE_DIR}/libsnap7_mingw.a ws2_32)
 target_link_options(${PROJECT_NAME} PRIVATE -static)
+
+# 构建后自动部署 Qt DLL
+find_program(WINDEPLOYQT_EXECUTABLE windeployqt
+    HINTS "${CMAKE_PREFIX_PATH}/bin")
+if(WINDEPLOYQT_EXECUTABLE)
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND "${WINDEPLOYQT_EXECUTABLE}"
+                "$<TARGET_FILE:${PROJECT_NAME}>"
+        COMMENT "Deploying Qt DLLs..."
+    )
+endif()
