@@ -37,3 +37,21 @@ cd d:/qt_learning/code/src/qt_process_hmi/siemens_plc_comm/stage3_read_data
 export PATH="/c/Qt/Tools/CMake_64/bin:/c/Qt/Tools/mingw1310_64/bin:/c/Qt/Tools/Ninja:$PATH"
 cmake -B build -G "Ninja" -DCMAKE_CXX_COMPILER=g++ -DCMAKE_PREFIX_PATH=C:/Qt/6.11.0/mingw_64
 cmake --build build
+
+## 7. Git 日常同步
+
+### 新电脑首次拉取
+
+git clone https://github.com/PandaZhym/qt_process_hmi.git
+
+### 每次工作开始
+
+git pull
+
+### 每次工作结束
+
+git add -A
+git commit -m "做了什么改动"
+git push
+
+Token 已保存在 `~/.git-credentials`，不需要每次输入密码。
