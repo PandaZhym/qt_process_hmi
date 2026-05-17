@@ -1,0 +1,31 @@
+# 编译产物
+build/
+*.o
+*.obj
+*.exe
+*.dll
+*.a
+*.so
+*.dylib
+moc_*
+ui_*
+qrc_*
+*_autogen/
+
+# IDE / 本地配置
+.vscode/
+.claude/
+.idea/
+*.user
+*.pro.user*
+
+# 系统文件
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# PDF / 文档产物（源码 .md 保留）
+docs/*.pdf
+
+# Qt 部署产物（*.qm 翻译文件等）
+*.qm

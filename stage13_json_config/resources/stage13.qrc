@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/configs">
+        <file alias="screen_process.json">../configs/screen_process.json</file>
+        <file alias="screen_monitor.json">../configs/screen_monitor.json</file>
+    </qresource>
+</RCC>

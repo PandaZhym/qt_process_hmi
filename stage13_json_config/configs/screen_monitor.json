@@ -1,0 +1,48 @@
+{
+    "name": "Monitor Dashboard",
+    "version": 1,
+    "widgets": [
+        {
+            "id": "disp_temp",
+            "type": "ValueDisplay",
+            "x": 30, "y": 30, "width": 220, "height": 110,
+            "properties": {"label": "Temperature", "unit": "°C", "decimals": 1, "alarmLow": 0},
+            "bindings": [{"tag": "TEMP", "property": "value"}]
+        },
+        {
+            "id": "disp_press",
+            "type": "ValueDisplay",
+            "x": 280, "y": 30, "width": 220, "height": 110,
+            "properties": {"label": "Pressure", "unit": "MPa", "decimals": 2},
+            "bindings": [{"tag": "PRESS", "property": "value"}]
+        },
+        {
+            "id": "disp_tank",
+            "type": "ValueDisplay",
+            "x": 530, "y": 30, "width": 220, "height": 110,
+            "properties": {"label": "Tank Level", "unit": "%", "decimals": 1, "alarmLow": 10, "alarmHigh": 90},
+            "bindings": [{"tag": "TANK", "property": "value", "transform": "val / 40 * 100"}]
+        },
+        {
+            "id": "disp_flow",
+            "type": "ValueDisplay",
+            "x": 30, "y": 170, "width": 220, "height": 110,
+            "properties": {"label": "Flow Rate", "unit": "m³/h", "decimals": 1, "alarmLow": 3},
+            "bindings": [{"tag": "FLOW", "property": "value"}]
+        },
+        {
+            "id": "disp_speed",
+            "type": "ValueDisplay",
+            "x": 280, "y": 170, "width": 220, "height": 110,
+            "properties": {"label": "Pump Speed", "unit": "%", "decimals": 1},
+            "bindings": [{"tag": "PUMP", "property": "value"}]
+        },
+        {
+            "id": "disp_valve",
+            "type": "ValueDisplay",
+            "x": 530, "y": 170, "width": 220, "height": 110,
+            "properties": {"label": "ValveOpening", "unit": "%", "decimals": 1},
+            "bindings": [{"tag": "VALVE", "property": "value"}]
+        }
+    ]
+}

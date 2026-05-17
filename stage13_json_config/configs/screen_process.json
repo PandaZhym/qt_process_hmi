@@ -1,0 +1,92 @@
+{
+    "name": "Process Flow",
+    "version": 1,
+    "widgets": [
+        {
+            "id": "tank_main",
+            "type": "TankWidget",
+            "x": 30, "y": 30, "width": 160, "height": 240,
+            "properties": {
+                "label": "TK-101",
+                "alarmLow": 10,
+                "alarmHigh": 90,
+                "setpoint": 50
+            },
+            "bindings": [
+                {"tag": "TANK", "property": "level", "transform": "val * 2.5"},
+                {"tag": "TANK", "property": "alarm", "transform": "val < 10 || val > 90"}
+            ]
+        },
+        {
+            "id": "pipe_tank_pump",
+            "type": "PipeWidget_H",
+            "x": 190, "y": 130, "width": 120, "height": 40,
+            "properties": {},
+            "bindings": [
+                {"tag": "PUMP", "property": "flowing", "transform": "val > 5"}
+            ]
+        },
+        {
+            "id": "pump_main",
+            "type": "PumpWidget",
+            "x": 310, "y": 80, "width": 160, "height": 160,
+            "properties": {"label": "P-201"},
+            "bindings": [
+                {"tag": "PUMP", "property": "speed"}
+            ]
+        },
+        {
+            "id": "pipe_pump_valve",
+            "type": "PipeWidget_H",
+            "x": 470, "y": 130, "width": 120, "height": 40,
+            "properties": {},
+            "bindings": [
+                {"tag": "PUMP", "property": "flowing", "transform": "val > 5"}
+            ]
+        },
+        {
+            "id": "valve_main",
+            "type": "ValveWidget",
+            "x": 590, "y": 60, "width": 140, "height": 180,
+            "properties": {"label": "V-301"},
+            "bindings": [
+                {"tag": "VALVE", "property": "opening"}
+            ]
+        },
+        {
+            "id": "disp_temp",
+            "type": "ValueDisplay",
+            "x": 30, "y": 310, "width": 150, "height": 80,
+            "properties": {"label": "TEMP", "unit": "°C", "decimals": 1, "alarmLow": 0},
+            "bindings": [{"tag": "TEMP", "property": "value"}]
+        },
+        {
+            "id": "disp_press",
+            "type": "ValueDisplay",
+            "x": 200, "y": 310, "width": 150, "height": 80,
+            "properties": {"label": "PRESS", "unit": "MPa", "decimals": 2},
+            "bindings": [{"tag": "PRESS", "property": "value"}]
+        },
+        {
+            "id": "disp_flow",
+            "type": "ValueDisplay",
+            "x": 370, "y": 310, "width": 150, "height": 80,
+            "properties": {"label": "FLOW", "unit": "m³/h", "decimals": 1, "alarmLow": 3},
+            "bindings": [{"tag": "FLOW", "property": "value"}]
+        },
+        {
+            "id": "disp_pump",
+            "type": "ValueDisplay",
+            "x": 540, "y": 310, "width": 150, "height": 80,
+            "properties": {"label": "PUMP", "unit": "%", "decimals": 1},
+            "bindings": [{"tag": "PUMP", "property": "value"}]
+        },
+        {
+            "id": "disp_valve",
+            "type": "ValueDisplay",
+            "x": 710, "y": 310, "width": 150, "height": 80,
+            "properties": {"label": "VALVE", "unit": "%", "decimals": 1},
+            "bindings": [{"tag": "VALVE", "property": "value"}]
+        }
+    ]
+}
