@@ -268,6 +268,11 @@ void MainWindow::onDisconnected()
     m_stopPollBtn->setEnabled(false);
     m_readBtn->setEnabled(false);
     m_writeBtn->setEnabled(false);
+    // 恢复轮询表区域，否则重连后无法操作
+    m_intervalSpin->setEnabled(true);
+    m_addBtn->setEnabled(true);
+    m_removeBtn->setEnabled(true);
+    m_table->setEnabled(true);
 }
 
 void MainWindow::onError(int code, const QString &message)
