@@ -91,21 +91,21 @@ void MainWindow::setupUi()
     m_rackSpin = new QSpinBox;
     m_rackSpin->setRange(0, 31);
     m_rackSpin->setValue(0);
-    m_rackSpin->setFixedWidth(50);
+    m_rackSpin->setFixedWidth(70);
     connRow->addWidget(m_rackSpin);
 
     connRow->addWidget(new QLabel("Slot:"));
     m_slotSpin = new QSpinBox;
     m_slotSpin->setRange(0, 31);
     m_slotSpin->setValue(1);
-    m_slotSpin->setFixedWidth(50);
+    m_slotSpin->setFixedWidth(70);
     connRow->addWidget(m_slotSpin);
 
     connRow->addWidget(new QLabel("DB:"));
     m_dbSpin = new QSpinBox;
     m_dbSpin->setRange(1, 65535);
     m_dbSpin->setValue(1);
-    m_dbSpin->setFixedWidth(60);
+    m_dbSpin->setFixedWidth(80);
     connRow->addWidget(m_dbSpin);
 
     m_connBtn = new QPushButton("连接");

@@ -63,13 +63,13 @@ void MainWindow::setupUi()
     connRow->addWidget(new QLabel("Rack:"));
     m_rackSpin = new QSpinBox;
     m_rackSpin->setRange(0, 31); m_rackSpin->setValue(0);
-    m_rackSpin->setFixedWidth(50);
+    m_rackSpin->setFixedWidth(70);
     connRow->addWidget(m_rackSpin);
 
     connRow->addWidget(new QLabel("Slot:"));
     m_slotSpin = new QSpinBox;
     m_slotSpin->setRange(0, 31); m_slotSpin->setValue(1);
-    m_slotSpin->setFixedWidth(50);
+    m_slotSpin->setFixedWidth(70);
     connRow->addWidget(m_slotSpin);
 
     m_connBtn = new QPushButton("连接");
