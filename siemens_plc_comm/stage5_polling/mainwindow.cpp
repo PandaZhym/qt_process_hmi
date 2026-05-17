@@ -274,6 +274,12 @@ void MainWindow::onError(int code, const QString &message)
 {
     m_statusLabel->setStyleSheet("color: red;");
     m_statusLabel->setText(QString("错误 %1: %2").arg(code).arg(message));
+    m_connectBtn->setEnabled(true);
+    m_disconnectBtn->setEnabled(false);
+    m_startPollBtn->setEnabled(false);
+    m_stopPollBtn->setEnabled(false);
+    m_readBtn->setEnabled(false);
+    m_writeBtn->setEnabled(false);
 }
 
 // ==================== 手动读写 ====================

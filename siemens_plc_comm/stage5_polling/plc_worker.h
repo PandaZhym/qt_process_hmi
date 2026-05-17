@@ -64,6 +64,9 @@ private:
     QString m_lastIp;
     int     m_lastRack = 0;
     int     m_lastSlot = 1;
+    int     m_consecutiveErrors = 0;  // 连续读失败次数
+    bool    m_wasConnected = false;    // 之前是否成功连上过
+    bool    m_reconnecting = false;    // 正在尝试重连，避免每轮都调 ConnectTo
 
     // 监控项列表
     QVector<MonitorItem> m_items;

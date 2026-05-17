@@ -27,6 +27,7 @@ void PlcWorker::connectToPlc(const QString &ip, int rack, int slot)
     int result = m_client->ConnectTo(ipBytes.constData(), rack, slot);
 
     if (result == 0) {
+        m_wasConnected = true;
         emit connected();
     } else {
         QString msg = QString::fromUtf8(CliErrorText(result).c_str());
@@ -36,6 +37,7 @@ void PlcWorker::connectToPlc(const QString &ip, int rack, int slot)
 
 void PlcWorker::disconnectFromPlc()
 {
+    m_wasConnected = false;
     m_timer->stop();
     m_client->Disconnect();
     emit disconnected();
@@ -99,13 +101,24 @@ void PlcWorker::stopPolling()
 void PlcWorker::pollAllItems()
 {
     // ---- 自动重连检测 ----
-    if (!m_client->Connected() && !m_lastIp.isEmpty()) {
+    if (!m_client->Connected() && !m_lastIp.isEmpty() && !m_reconnecting) {
+        m_reconnecting = true;
         QByteArray ipBytes = m_lastIp.toUtf8();
         m_client->ConnectTo(ipBytes.constData(), m_lastRack, m_lastSlot);
+        m_reconnecting = false;
+
+        if (m_client->Connected()) {
+            m_wasConnected = true;
+            m_consecutiveErrors = 0;
+            emit connected();
+        }
     }
 
     if (!m_client->Connected()) {
-        emit disconnected();
+        if (m_wasConnected) {
+            m_wasConnected = false;
+            emit disconnected();
+        }
         return;
     }
 
@@ -113,6 +126,7 @@ void PlcWorker::pollAllItems()
     checkCpuStatus();
 
     // ---- 逐项读取 ----
+    bool anyFailed = false;
     for (int i = 0; i < m_items.size(); ++i) {
         const MonitorItem &item = m_items[i];
         int size = sizeForType(item.valType);
@@ -129,9 +143,20 @@ void PlcWorker::pollAllItems()
         if (result == 0) {
             emit pollingData(i, item.area, item.dbNum, item.start, buffer);
         } else {
-            // 单个项失败不影响其他项，发空数据表示错误
+            anyFailed = true;
             emit pollingData(i, item.area, item.dbNum, item.start, QByteArray());
         }
+    }
+
+    // ---- 读失败即断线检测 ----
+    if (anyFailed) {
+        m_consecutiveErrors++;
+        if (m_consecutiveErrors >= 3) {
+            m_client->Disconnect();  // 强制断开 TCP，才能触发重连
+            m_consecutiveErrors = 0;
+        }
+    } else {
+        m_consecutiveErrors = 0;
     }
 
     emit pollingTick();
