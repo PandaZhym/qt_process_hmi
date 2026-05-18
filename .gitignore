@@ -31,3 +31,6 @@ docs/*.pdf
 
 # Qt 部署产物（*.qm 翻译文件等）
 *.qm
+
+# Dear ImGui 运行时生成
+imgui.ini
